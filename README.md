@@ -1,6 +1,6 @@
 # Morpheus
 
-![Morpheus Architecture](/home/gbrisolara/.gemini/antigravity/brain/01c6797e-c561-4bf2-8d91-cae4e88ba6e6/morpheus_architecture_1779831327767.png)
+![Morpheus Architecture](./infra/morpheus_arch.png)
 
 Morpheus is an intelligent job aggregation and semantic search platform. The application abandons traditional keyword-based search in favor of **Semantic Search (Embedding-based retrieval)** utilizing the .NET 8 ecosystem and PostgreSQL.
 

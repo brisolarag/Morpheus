@@ -1,0 +1,18 @@
+services:
+  postgres-db:
+    # Usamos a imagem oficial do pgvector que já embute a extensão no PostgreSQL 16
+    image: pgvector/pgvector:pg16
+    container_name: db_morpheus
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpassword # Mude para uma senha forte em produção
+      POSTGRES_DB: MorpheusDB
+    ports:
+      - "5432:5432"
+    volumes:
+      # Cria um volume persistente para não perder os dados se o contêiner reiniciar
+      - postgres_morpheus_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_morpheus_data:

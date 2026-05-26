@@ -1,0 +1,6 @@
+@Morpheus.Api_HostAddress = http://localhost:5223
+
+GET {{Morpheus.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

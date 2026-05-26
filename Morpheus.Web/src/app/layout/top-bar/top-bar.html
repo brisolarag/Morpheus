@@ -1,0 +1,39 @@
+<nav class="bg-gray-900 border-b border-gray-800 text-white sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 items-center">
+      <!-- Logo -->
+      <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" routerLink="/search">
+        <div
+          class="w-8 h-8 rounded bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-bold text-lg">
+          M
+        </div>
+        <span class="font-semibold text-xl tracking-wide">Morpheus</span>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+        <a routerLink="/search" routerLinkActive="border-indigo-500 text-white"
+          class="border-transparent text-gray-300 hover:text-white hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors">
+          Search
+        </a>
+        <a routerLink="/favorites" routerLinkActive="border-indigo-500 text-white"
+          class="border-transparent text-gray-300 hover:text-white hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors">
+          Favorites
+        </a>
+        <a routerLink="/account" routerLinkActive="border-indigo-500 text-white"
+          class="border-transparent text-gray-300 hover:text-white hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors">
+          Account
+        </a>
+      </div>
+
+      <!-- Mobile menu button (placeholder) -->
+      <div class="sm:hidden flex items-center">
+        <button type="button" class="text-gray-400 hover:text-white focus:outline-none">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Morpheus.Shareds", "Morpheu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Morpheus.Scraper", "Morpheus.Scraper\Morpheus.Scraper.csproj", "{D061BA2C-D8A3-4272-ACF6-32B951B2922E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Morpheus.Identity", "Morpheus.Identity\Morpheus.Identity.csproj", "{091AF47F-61BA-4B9D-B3D4-5D2E27BDA749}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Morpheus.Tests", "Morpheus.Tests\Morpheus.Tests.csproj", "{D2BDFE58-97D9-4135-BA93-A310F5FFAFB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{D061BA2C-D8A3-4272-ACF6-32B951B2922E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D061BA2C-D8A3-4272-ACF6-32B951B2922E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D061BA2C-D8A3-4272-ACF6-32B951B2922E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{091AF47F-61BA-4B9D-B3D4-5D2E27BDA749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{091AF47F-61BA-4B9D-B3D4-5D2E27BDA749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{091AF47F-61BA-4B9D-B3D4-5D2E27BDA749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{091AF47F-61BA-4B9D-B3D4-5D2E27BDA749}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2BDFE58-97D9-4135-BA93-A310F5FFAFB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2BDFE58-97D9-4135-BA93-A310F5FFAFB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2BDFE58-97D9-4135-BA93-A310F5FFAFB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2BDFE58-97D9-4135-BA93-A310F5FFAFB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

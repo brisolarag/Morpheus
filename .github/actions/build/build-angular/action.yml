@@ -1,0 +1,21 @@
+name: Build Angular UI
+description: Installs dependencies and builds the Angular application
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: npm
+        cache-dependency-path: Morpheus.Web/package-lock.json
+
+    - name: Install dependencies
+      run: npm ci
+      shell: bash
+      working-directory: Morpheus.Web
+
+    - name: Build
+      run: npm run build -- --configuration production
+      shell: bash
+      working-directory: Morpheus.Web

@@ -117,16 +117,16 @@ public class JobsController : ControllerBase
 
             var newJob = new Job
             {
-                ExternalJobId = request.ExternalJobId,
-                Title = request.Title,
+                ExternalJobId = request.ExternalJobId!,
+                Title = request.Title!,
                 Company = request.Company,
                 CompanyLogo = request.CompanyLogo,
                 OriginalDescription = request.OriginalDescription,
-                SeniorityLevel = request.SeniorityLevel,
+                SeniorityLevel = request.SeniorityLevel!,
                 ContractType = request.ContractType,
-                
-                JobType = request.Location.Contains("Remote", StringComparison.OrdinalIgnoreCase) ? JobType.REMOTE : JobType.HYBRID,
-                
+
+                JobType = request.Location!.Contains("Remote", StringComparison.OrdinalIgnoreCase) ? JobType.REMOTE : JobType.HYBRID,
+
                 Location = request.Location,
                 LinkedinJobUrl = request.LinkedinJobUrl,
                 ApplyUrl = request.ApplyUrl,

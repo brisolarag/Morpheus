@@ -1,0 +1,41 @@
+name: Test UI End-to-End
+description: Runs Selenium E2E tests against the Angular application
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: npm
+        cache-dependency-path: Morpheus.Web/package-lock.json
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+        cache: true
+        cache-dependency-path: '**/*.csproj'
+
+    - name: Install dependencies
+      run: npm ci
+      shell: bash
+      working-directory: Morpheus.Web
+
+    - name: Start Angular App
+      run: npm start &
+      shell: bash
+      working-directory: Morpheus.Web
+
+    - name: Wait for Angular to be ready
+      run: npx wait-on http://localhost:4200
+      shell: bash
+      working-directory: Morpheus.Web
+
+    - name: Restore dependencies
+      run: dotnet restore Morpheus.sln
+      shell: bash
+
+    - name: Run UI Tests
+      run: dotnet test Morpheus.sln --configuration Release --filter "Category=UI"
+      shell: bash

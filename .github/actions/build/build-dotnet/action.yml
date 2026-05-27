@@ -1,0 +1,19 @@
+name: Build .NET Solution
+description: Restores, builds, and tests the .NET solution
+runs:
+  using: "composite"
+  steps:
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+        cache: true
+        cache-dependency-path: '**/*.csproj'
+
+    - name: Restore dependencies
+      run: dotnet restore Morpheus.sln
+      shell: bash
+
+    - name: Build
+      run: dotnet build Morpheus.sln --no-restore --configuration Release
+      shell: bash

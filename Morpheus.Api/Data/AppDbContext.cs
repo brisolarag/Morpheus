@@ -11,6 +11,8 @@ public class AppDbContext : DbContext
     public DbSet<Job> Jobs { get; set; }
     public DbSet<Technology> Technologies { get; set; }
     public DbSet<JobTechnology> JobTechnologies { get; set; }
+    public DbSet<UserFavoriteJob> UserFavoriteJobs { get; set; }
+    public DbSet<UserCv> UserCvs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -32,6 +34,14 @@ public class AppDbContext : DbContext
             .HasOne(jt => jt.Technology)
             .WithMany(t => t.JobTechnologies)
             .HasForeignKey(jt => jt.TechnologyId);
+
+        modelBuilder.Entity<UserFavoriteJob>()
+            .HasKey(ufj => new { ufj.UserId, ufj.JobId });
+
+        modelBuilder.Entity<UserFavoriteJob>()
+            .HasOne(ufj => ufj.Job)
+            .WithMany()
+            .HasForeignKey(ufj => ufj.JobId);
 
         // Índice HNSW para busca vetorial acelerada
         modelBuilder.Entity<Job>()

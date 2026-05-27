@@ -1,0 +1,19 @@
+name: Test .NET Solution
+description: Runs backend unit tests excluding UI tests
+runs:
+  using: "composite"
+  steps:
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+        cache: true
+        cache-dependency-path: '**/*.csproj'
+
+    - name: Restore dependencies
+      run: dotnet restore Morpheus.sln
+      shell: bash
+
+    - name: Run Unit Tests
+      run: dotnet test Morpheus.sln --configuration Release --filter "Category!=UI"
+      shell: bash

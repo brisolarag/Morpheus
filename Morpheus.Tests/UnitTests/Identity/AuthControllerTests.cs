@@ -40,6 +40,6 @@ public class AuthControllerTests
 
         // Assert
         var badRequest = Assert.IsType<BadRequestObjectResult>(result);
-        Assert.Contains("User already exists", badRequest.Value?.ToString() ?? "");
+        Assert.Contains("Email already in use", badRequest.Value?.ToString() ?? "");
     }
 }

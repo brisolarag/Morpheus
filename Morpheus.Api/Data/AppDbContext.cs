@@ -16,7 +16,20 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasPostgresExtension("vector");
+        if (Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
+        {
+            modelBuilder.HasPostgresExtension("vector");
+
+            // Índice HNSW para busca vetorial acelerada
+            modelBuilder.Entity<Job>()
+                .HasIndex(j => j.Embedding)
+                .HasMethod("hnsw")
+                .HasOperators("vector_cosine_ops");
+        }
+        else
+        {
+            modelBuilder.Entity<Job>().Ignore(j => j.Embedding);
+        }
 
         modelBuilder.Entity<Job>()
             .Property(j => j.JobType)
@@ -42,11 +55,5 @@ public class AppDbContext : DbContext
             .HasOne(ufj => ufj.Job)
             .WithMany()
             .HasForeignKey(ufj => ufj.JobId);
-
-        // Índice HNSW para busca vetorial acelerada
-        modelBuilder.Entity<Job>()
-            .HasIndex(j => j.Embedding)
-            .HasMethod("hnsw")
-            .HasOperators("vector_cosine_ops");
     }
 }

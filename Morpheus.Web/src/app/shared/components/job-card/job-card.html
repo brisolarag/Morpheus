@@ -1,4 +1,4 @@
-<div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-indigo-100 group">
+<div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-indigo-100 group cursor-pointer" (click)="cardClick.emit(job)">
   <div class="flex items-start gap-4">
     <!-- Company Logo -->
     <div class="w-16 h-16 rounded-xl overflow-hidden bg-gray-50 flex-shrink-0 border border-gray-100 shadow-inner">
@@ -40,11 +40,11 @@
       
       <!-- Actions -->
       <div class="mt-5 flex justify-between items-center pt-4 border-t border-gray-100">
-        <button class="text-gray-500 hover:text-red-500 transition-colors flex items-center gap-2 text-sm font-medium">
+        <button class="text-gray-500 hover:text-red-500 transition-colors flex items-center gap-2 text-sm font-medium" (click)="$event.stopPropagation()">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
           Save
         </button>
-        <a [href]="job.applyUrl" target="_blank" rel="noopener noreferrer" 
+        <a [href]="job.applyUrl" target="_blank" rel="noopener noreferrer" (click)="$event.stopPropagation()"
            class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
           Apply Now
         </a>

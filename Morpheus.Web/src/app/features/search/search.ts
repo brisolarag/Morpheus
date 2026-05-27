@@ -2,7 +2,8 @@ import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { JobService } from '../../core/services/job';
-import { JobSearchResponse } from '../../core/models/job.model';
+import { Job, JobSearchResponse } from '../../core/models/job.model';
+import { CV } from '../../core/models/cv.model';
 import { JobCard } from '../../shared/components/job-card/job-card';
 
 @Component({
@@ -19,6 +20,28 @@ export class Search {
   isSearching = false;
   hasSearched = false;
   response: JobSearchResponse | null = null;
+
+  selectedJob: Job | null = null;
+  isModalOpen = false;
+
+  openJobModal(job: Job): void {
+    this.selectedJob = job;
+    this.isModalOpen = true;
+    this.cdr.markForCheck();
+  }
+
+  closeJobModal(): void {
+    this.isModalOpen = false;
+    this.cdr.markForCheck();
+    setTimeout(() => {
+      this.selectedJob = null;
+      this.cdr.markForCheck();
+    }, 300);
+  }
+
+  openCvEditorTab(jobId: string | number): void {
+    window.open(`/cv-editor/${jobId}`, '_blank');
+  }
 
   onSearch(): void {
     if (!this.searchQuery.trim()) return;

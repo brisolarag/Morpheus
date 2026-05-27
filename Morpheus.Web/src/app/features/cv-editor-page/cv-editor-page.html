@@ -1,0 +1,116 @@
+<div class="min-h-screen bg-gray-50 flex flex-col h-screen overflow-hidden">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between shrink-0 shadow-sm z-10">
+    <div class="flex items-center gap-4">
+      <button (click)="goBack()" class="text-gray-500 hover:text-gray-900 transition-colors p-2 -ml-2 rounded-lg hover:bg-gray-100 flex items-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        <span class="font-medium text-sm">Back to Search</span>
+      </button>
+      <div class="h-6 w-px bg-gray-200"></div>
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center shadow-md">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+        </div>
+        <h1 class="text-xl font-bold text-gray-900 tracking-tight">AI CV Editor</h1>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-3">
+      <button class="px-4 py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 font-medium text-sm rounded-xl transition-colors">
+        Save Draft
+      </button>
+      <button class="px-5 py-2 bg-indigo-600 text-white hover:bg-indigo-700 font-medium text-sm rounded-xl shadow-sm transition-colors flex items-center gap-2">
+        <span>Export CV</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="flex-1 flex flex-col items-center justify-center">
+    <svg class="animate-spin h-10 w-10 text-indigo-600 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+    <p class="text-gray-500 font-medium">Loading workspace...</p>
+  </div>
+
+  <!-- Main Split Layout -->
+  <div *ngIf="!loading && job" class="flex-1 flex overflow-hidden">
+    
+    <!-- Left: CV Editor component (takes 60% of width) -->
+    <div class="w-3/5 border-r border-gray-200 bg-white flex flex-col relative z-0">
+      <app-cv-editor [job]="job" class="flex-1 flex flex-col h-full"></app-cv-editor>
+    </div>
+
+    <!-- Right: Highlighted Job Details (takes 40% of width) -->
+    <div class="w-2/5 bg-gray-50 flex flex-col overflow-hidden relative shadow-inner">
+      <div class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between shrink-0 shadow-sm z-10 sticky top-0">
+        <h2 class="font-bold text-gray-900 flex items-center gap-2">
+          <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+          Target Job Description
+        </h2>
+        <span class="text-xs font-medium bg-yellow-100 text-yellow-800 px-2.5 py-0.5 rounded-full flex items-center gap-1.5 border border-yellow-200 shadow-sm">
+          <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-pulse"></span>
+          AI Analysis Active
+        </span>
+      </div>
+
+      <div class="flex-1 overflow-y-auto custom-scrollbar p-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+          <div class="flex items-start gap-4">
+            <div class="w-16 h-16 rounded-xl bg-gray-50 border border-gray-100 overflow-hidden shrink-0">
+              <img [src]="job.companyLogo" [alt]="job.company" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900">{{ job.title }}</h3>
+              <p class="text-indigo-600 font-medium">{{ job.company }}</p>
+              <p class="text-sm text-gray-500 mt-1 flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+                {{ job.location }} &bull; {{ job.contractType }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+          <h4 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4">Job Details & Requirements</h4>
+          
+          <!-- This is where the highlight pipe is applied -->
+          <div class="text-sm text-gray-700 leading-relaxed font-sans" 
+               [innerHTML]="job.originalDescription | highlight:highlightTerms">
+          </div>
+          
+          <div *ngIf="!job.originalDescription" class="text-sm text-gray-500 italic">
+            No original description available for this job.
+          </div>
+        </div>
+      </div>
+      
+      <!-- Action Footer -->
+      <div class="bg-white border-t border-gray-200 p-4 shrink-0 flex items-center justify-between">
+        <div class="flex flex-col">
+          <span class="text-xs text-gray-500 font-medium">Match Score</span>
+          <span class="text-lg font-bold text-green-600">{{ (job.relevanceScore * 100).toFixed(0) }}%</span>
+        </div>
+        <a [href]="job.applyUrl" target="_blank" rel="noopener noreferrer" class="px-6 py-2.5 bg-gray-900 text-white font-medium text-sm rounded-xl shadow-sm hover:bg-black transition-colors flex items-center gap-2">
+          Apply to Job
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!loading && (!job || errorMessage)" class="flex-1 flex flex-col items-center justify-center">
+    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+      <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+    </div>
+    <h3 class="text-lg font-bold text-gray-900 mb-2">Job not found or Error occurred</h3>
+    <p class="text-gray-500 mb-2">The job you're trying to analyze couldn't be found or doesn't exist.</p>
+    <p *ngIf="errorMessage" class="text-red-500 font-mono text-sm mb-6 bg-red-50 p-2 rounded border border-red-100">{{ errorMessage }}</p>
+    <button (click)="goBack()" class="px-6 py-2 border border-gray-300 rounded-xl font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+      Go back
+    </button>
+  </div>
+</div>

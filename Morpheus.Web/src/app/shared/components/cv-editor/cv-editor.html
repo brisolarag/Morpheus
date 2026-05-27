@@ -1,0 +1,84 @@
+<div class="flex-1 flex flex-col h-full bg-slate-50 overflow-hidden relative">
+  <!-- File Upload Area (if no CV selected and not analyzing) -->
+  <div *ngIf="!selectedCv && !isAnalyzingFile" class="p-8 h-full flex flex-col justify-center items-center text-center">
+    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6 shadow-inner">
+      <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+    </div>
+    <h3 class="text-2xl font-bold text-gray-900 mb-3 tracking-tight">Upload your CV</h3>
+    <p class="text-gray-500 max-w-md mb-8 leading-relaxed">Upload your CV in PDF format. Our AI will extract the text, analyze it against the target job description, and suggest targeted improvements.</p>
+    
+    <div class="w-full max-w-md">
+      <label class="flex flex-col items-center justify-center w-full h-48 border-2 border-indigo-300 border-dashed rounded-2xl cursor-pointer bg-indigo-50 hover:bg-indigo-100 transition-colors group">
+        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+          <svg class="w-10 h-10 mb-4 text-indigo-500 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          <p class="mb-2 text-sm text-indigo-700 font-semibold"><span class="font-bold">Click to upload</span> or drag and drop</p>
+          <p class="text-xs text-indigo-500 font-medium">PDF (MAX. 5MB)</p>
+        </div>
+        <input type="file" class="hidden" accept=".pdf" (change)="onFileSelected($event)" />
+      </label>
+    </div>
+  </div>
+
+  <!-- Loading / Analyzing State -->
+  <div *ngIf="isAnalyzingFile" class="p-8 h-full flex flex-col justify-center items-center text-center bg-white">
+    <div class="relative w-24 h-24 mb-8">
+      <div class="absolute inset-0 border-4 border-indigo-100 rounded-full"></div>
+      <div class="absolute inset-0 border-4 border-indigo-600 rounded-full border-t-transparent animate-spin"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+      </div>
+    </div>
+    
+    <h3 class="text-2xl font-bold text-gray-900 mb-2">Analyzing your CV</h3>
+    <p class="text-gray-500 max-w-sm mb-8">Morpheus AI is currently extracting text and cross-referencing your skills with the job requirements.</p>
+    
+    <div class="w-full max-w-xs bg-gray-200 rounded-full h-2.5 mb-2 overflow-hidden">
+      <div class="bg-indigo-600 h-2.5 rounded-full transition-all duration-300 ease-out" [style.width]="uploadProgress + '%'"></div>
+    </div>
+    <span class="text-sm font-medium text-gray-500">{{ uploadProgress }}%</span>
+  </div>
+
+  <!-- Editor UI (when CV is selected) -->
+  <div *ngIf="selectedCv" class="flex-1 flex flex-col h-full">
+    <div class="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between shrink-0 shadow-sm z-10">
+      <div class="flex items-center gap-3">
+        <button (click)="selectCv(null)" class="text-gray-400 hover:text-indigo-600 transition-colors" title="Upload another CV">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <span class="font-medium text-gray-900">{{ selectedCv.name }}</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+          AI Analyzed
+        </span>
+      </div>
+    </div>
+
+    <!-- Word-like canvas -->
+    <div class="flex-1 overflow-y-auto p-4 md:p-8 custom-scrollbar bg-slate-100 relative">
+      
+      <!-- The "Page" -->
+      <div class="max-w-4xl mx-auto flex gap-6 relative items-start">
+        
+        <div class="flex-1 bg-white shadow-md border border-gray-200 rounded-sm p-8 min-h-[800px] text-gray-800 font-serif leading-relaxed whitespace-pre-wrap outline-none" contenteditable="true">
+          {{ selectedCv.content }}
+        </div>
+
+        <!-- Margin for comments (AI Suggestions) -->
+        <div class="w-72 shrink-0 hidden xl:flex flex-col gap-4 relative mt-16">
+          <div *ngFor="let suggestion of selectedCv.suggestions" class="bg-white rounded-xl shadow-lg border border-indigo-100 p-4 relative before:content-[''] before:absolute before:-left-2 before:top-4 before:w-4 before:h-4 before:bg-white before:border-l before:border-b before:border-indigo-100 before:rotate-45">
+            <div class="flex items-center gap-2 mb-2">
+              <div class="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white text-xs font-bold shadow-inner">
+                AI
+              </div>
+              <span class="text-xs font-bold text-indigo-700">Morpheus AI</span>
+            </div>
+            <p class="text-xs text-gray-500 italic mb-2 px-2 border-l-2 border-gray-200">"...{{ suggestion.textRef }}..."</p>
+            <p class="text-sm text-gray-800 font-medium leading-snug">{{ suggestion.suggestion }}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

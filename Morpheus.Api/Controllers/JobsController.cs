@@ -52,6 +52,7 @@ public class JobsController : ControllerBase
                     j.ExternalPlatform,
                     j.ApplyUrl,
                     j.PublishedAt,
+                    j.OriginalDescription,
 
                     // Calculamos um "Score de Relevância" em porcentagem para mostrar na tela depois.
                     // A distância de cosseno varia de 0 (idêntico) a 2 (oposto). 
@@ -70,6 +71,24 @@ public class JobsController : ControllerBase
         catch (Exception ex)
         {
             return StatusCode(500, new { Error = "Erro interno ao realizar busca semântica", Details = ex.Message });
+        }
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetJobById(int id)
+    {
+        try
+        {
+            var job = await _context.Jobs.FindAsync(id);
+            if (job == null)
+            {
+                return NotFound(new { Error = "Vaga não encontrada" });
+            }
+            return Ok(job);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Error = "Erro interno ao buscar a vaga", Details = ex.Message });
         }
     }
 

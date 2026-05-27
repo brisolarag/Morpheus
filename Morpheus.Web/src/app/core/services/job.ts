@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { JobSearchResponse } from '../models/job.model';
+import { Job, JobSearchResponse } from '../models/job.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +43,11 @@ export class JobService {
         observer.complete();
       }, 500);
     });
+  }
+
+  getJobById(id: string | number): Observable<Job | undefined> {
+    const job = this.mockData.results.find(j => j.id == id) || this.mockData.results[0];
+    return of(job);
   }
 }
 

@@ -9,6 +9,7 @@ export interface Job {
   externalPlatform: string;
   applyUrl: string;
   publishedAt: string;
+  originalDescription?: string;
   relevanceScore: number;
 }
 

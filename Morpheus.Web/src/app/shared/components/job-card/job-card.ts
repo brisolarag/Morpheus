@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Job } from '../../../core/models/job.model';
 
@@ -10,6 +10,7 @@ import { Job } from '../../../core/models/job.model';
 })
 export class JobCard {
   @Input() job!: Job;
+  @Output() cardClick = new EventEmitter<Job>();
   
   getRelevancePercentage(): number {
     return Math.round(this.job.relevanceScore * 100);

@@ -6,7 +6,7 @@ Feature: User Registration
   Scenario: PS1 - User registers successfully with valid data
     Given I have valid registration details for "jane@example.com"
     When I submit the registration request
-    Then the response status should be successful
+    Then the registration response status should be successful
     And the user "jane@example.com" should exist in the database
 
   Scenario: NS1 - User registration fails with duplicate email

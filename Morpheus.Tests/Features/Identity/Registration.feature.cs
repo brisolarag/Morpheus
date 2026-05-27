@@ -106,7 +106,7 @@ namespace Morpheus.Tests.Features.Identity
     testRunner.When("I submit the registration request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 9
-    testRunner.Then("the response status should be successful", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("the registration response status should be successful", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 10
     testRunner.And("the user \"jane@example.com\" should exist in the database", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");

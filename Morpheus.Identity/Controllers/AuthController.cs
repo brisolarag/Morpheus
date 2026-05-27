@@ -77,7 +77,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet("external-login-callback")]
-    public async Task<IActionResult> ExternalLoginCallback(string returnUrl = "/", string remoteError = null)
+    public IActionResult ExternalLoginCallback(string returnUrl = "/", string? remoteError = null)
     {
         // This is where we would extract the claims from the external provider and log the user in.
         // For now, it's just a scaffold.

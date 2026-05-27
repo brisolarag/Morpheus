@@ -4,7 +4,7 @@ Feature: User Login
   I want to be able to log in to the Morpheus platform
 
   @UI
-  Scenario: Successful login with valid credentials
+  Scenario: HS1 - Successful login with valid credentials
     Given I have navigated to the login page
     When I enter my email "john@example.com" and password "Password123!"
     And I click the login button

@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Morpheus.Tests.Features
+namespace Morpheus.Tests.Features.SeleniumTests
 {
     using TechTalk.SpecFlow;
     using System;
@@ -40,7 +40,7 @@ namespace Morpheus.Tests.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "User Login", "  In order to access my account\n  As a registered user\n  I want to be able to log" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/SeleniumTests", "User Login", "  In order to access my account\n  As a registered user\n  I want to be able to log" +
                     " in to the Morpheus platform", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -81,15 +81,17 @@ namespace Morpheus.Tests.Features
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Successful login with valid credentials")]
+        [Xunit.SkippableFactAttribute(DisplayName="HS1 - Successful login with valid credentials")]
         [Xunit.TraitAttribute("FeatureTitle", "User Login")]
-        [Xunit.TraitAttribute("Description", "Successful login with valid credentials")]
-        public void SuccessfulLoginWithValidCredentials()
+        [Xunit.TraitAttribute("Description", "HS1 - Successful login with valid credentials")]
+        [Xunit.TraitAttribute("Category", "UI")]
+        public void HS1_SuccessfulLoginWithValidCredentials()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "UI"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Successful login with valid credentials", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 6
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("HS1 - Successful login with valid credentials", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 7
   this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -99,19 +101,19 @@ namespace Morpheus.Tests.Features
             else
             {
                 this.ScenarioStart();
-#line 7
+#line 8
     testRunner.Given("I have navigated to the login page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 8
+#line 9
     testRunner.When("I enter my email \"john@example.com\" and password \"Password123!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 9
+#line 10
     testRunner.And("I click the login button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 10
+#line 11
     testRunner.Then("I should be redirected to the dashboard", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 11
+#line 12
     testRunner.And("I should see a welcome message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
